@@ -36,3 +36,8 @@ In case you don't need to save newmans report to the host, and your collection i
 ```terminal
 docker run -t postman/newman_alpine33 --url="https://www.getpostman.com/collections/df0a40ef41d570c48154"
 ```
+
+
+```terminal
+docker run --volume="/home/postman/collections:/var/Newman-to-Slack.sh" -c mycollection.json.postman_collection -w https://hooks.slack.com/services/url -f config -e mycollection.json.postman_collection
+```

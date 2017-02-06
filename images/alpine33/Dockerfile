@@ -15,6 +15,10 @@ RUN apk add --update nodejs=${NODE_VERSION}-r0;
 # Set newman version
 ENV NEWMAN_VERSION 3.4.2
 
+# Set slack webhook url
+# ENV WEBHOOK_URL https://webhook/uri
+
+
 # Install newman
 RUN npm install -g newman@${NEWMAN_VERSION};
 
@@ -27,6 +31,9 @@ RUN npm install -g newman@${NEWMAN_VERSION};
 # collection, environment files you want to pass to newman, and if you want newman reports to be saved to your disk.
 # Or you can change the workdir by using the -w or --workdir flag
 
+# Download newman to slack
+RUN git clone -b v2.1.0 https://github.com/cameronoxley/Newman-to-Slack.git
+
 WORKDIR /etc/newman
 
 # Set newman as the default container command
@@ -36,4 +43,4 @@ WORKDIR /etc/newman
 #                                                                        -e YourEnvironment.postman_environment \
 #                                                                        -H newman_report.html
 
-ENTRYPOINT ["newman"]
+ENTRYPOINT ["newman", "Newman-to-Slack.sh"]
